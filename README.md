@@ -58,9 +58,8 @@ Supported protocols：Vless，Vmess，shadowsocks，Hysteria2
 
 <br>
 
->TG频道：[https://t.me/AirGo_Channel](https://t.me/AirGo_Channel)
-TG群组：[https://t.me/AirGo_Group](https://t.me/AirGo_Group)
-文档上次更新日期：2024.5.21
+>
+文档上次更新日期：2024.5.25
 
 <br>
 
@@ -70,17 +69,17 @@ TG群组：[https://t.me/AirGo_Group](https://t.me/AirGo_Group)
 
 <table>
 <tr>
-    <td> <img src="https://github.com/AirGo-Official/AirGo/raw/main/assets/image/1.png">
-    <td> <img src="https://github.com/AirGo-Official/AirGo/raw/main/assets/image/2.png">
-    <td> <img src="https://github.com/AirGo-Official/AirGo/raw/main/assets/image/3.png">
+    <td> <img src="https://github.com/shuangyu233/AirGo_Modify/raw/main/assets/image/1.png">
+    <td> <img src="https://github.com/shuangyu233/AirGo_Modify/raw/main/assets/image/2.png">
+    <td> <img src="https://github.com/shuangyu233/AirGo_Modify/raw/main/assets/image/3.png">
 <tr>
-    <td> <img src="https://github.com/AirGo-Official/AirGo/raw/main/assets/image/4.png">
-    <td> <img src="https://github.com/AirGo-Official/AirGo/raw/main/assets/image/5.png">
-    <td> <img src="https://github.com/AirGo-Official/AirGo/raw/main/assets/image/6.png">
+    <td> <img src="https://github.com/shuangyu233/AirGo_Modify/raw/main/assets/image/4.png">
+    <td> <img src="https://github.com/shuangyu233/AirGo_Modify/raw/main/assets/image/5.png">
+    <td> <img src="https://github.com/shuangyu233/AirGo_Modify/raw/main/assets/image/6.png">
 </table>
 <table>
 <tr>
-    <td> <img src="https://github.com/AirGo-Official/AirGo/raw/main/assets/image/7.png">
+    <td> <img src="https://github.com/shuangyu233/AirGo_Modify/raw/main/assets/image/7.png">
 </table>
 
 # 目录：
@@ -92,7 +91,7 @@ TG群组：[https://t.me/AirGo_Group](https://t.me/AirGo_Group)
 - 安装核心，使用Ubuntu、Debian、Centos等Linux系统，执行以下命令，然后根据提示安装
 
 ```
-bash <(curl -Ls https://raw.githubusercontent.com/AirGo-Official/AirGo/main/server/scripts/install.sh)
+bash <(curl -Ls https://raw.githubusercontent.com/shuangyu233/AirGo_Modify/main/server/scripts/install.sh)
 ```
 
 - 修改配置文件，配置文件目录 `/usr/local/AirGo/config.yaml`，首次安装，会根据配置文件config.yaml自动初始化数据，请务必修改管理员账号和密码
@@ -163,14 +162,14 @@ services:
 
 ### 2-1-1 直接安装
 ```
-bash <(curl -Ls https://raw.githubusercontent.com/AirGo-Official/AirGo/main/server/scripts/install.sh)
+bash <(curl -Ls https://raw.githubusercontent.com/shuangyu233/AirGo_Modify/main/server/scripts/install.sh)
 ```
 
 - 修改配置文件，配置文件目录 `/usr/local/AirGo/config.yaml`，首次安装，会根据配置文件config.yaml自动初始化数据，请务必修改管理员账号和密码
 - 启动核心，`systemctl start AirGo`
 
 ### 2-1-2 docker 安装
-- 提前准备好配置文件 config.yaml，参考 [config.yaml](https://github.com/AirGo-Official/AirGo/blob/main/server/config.yaml),首次安装，会根据配置文件config.yaml自动初始化数据，请务必修改管理员账号和密码
+- 提前准备好配置文件 config.yaml，参考 [config.yaml](https://github.com/shuangyu233/AirGo_Modify/blob/main/server/config.yaml),首次安装，会根据配置文件config.yaml自动初始化数据，请务必修改管理员账号和密码
 - 启动docker命令参考如下：
 
 ```
@@ -259,7 +258,7 @@ sqlite:
 ### 5-1-1 直接安装 V2bX
 
 ```
-bash <(curl -Ls https://raw.githubusercontent.com/AirGo-Official/AirGo/main/scripts/install.sh)
+bash <(curl -Ls https://raw.githubusercontent.com/shuangyu233/AirGo_Modify/main/scripts/install.sh)
 ```
 - 安装完成后请根据需要在```/etc/V2bX/config.json```中修改配置文件
 - 启动：使用管理脚本```AV```或直接 `systemctl start AV`
@@ -363,5 +362,5 @@ services:
 
 # 8 更多说明
 
-[点击查看更多](https://github.com/AirGo-Official/AirGo/wiki/Wiki)
+[点击查看更多](https://github.com/shuangyu233/AirGo_Modify/wiki/Wiki)
 

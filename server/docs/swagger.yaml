@@ -1198,11 +1198,11 @@ definitions:
     type: object
 info:
   contact:
-    url: https://github.com/AirGo-Official/AirGo
+    url: https://github.com/shuangyu233/AirGo_Modify
   description: AirGo前后分离,多用户代理面板
   license:
     name: GPL v3.0
-    url: https://github.com/AirGo-Official/AirGo/blob/main/LICENSE
+    url: https://github.com/shuangyu233/AirGo_Modify/blob/main/LICENSE
   title: AirGo
 paths:
   /api/admin/access/deleteAccess:

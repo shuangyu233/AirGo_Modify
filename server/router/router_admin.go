@@ -1,8 +1,8 @@
 package router
 
 import (
-	"github.com/AirGo-Official/AirGo/api/admin_api"
-	middleware "github.com/AirGo-Official/AirGo/router/middleware"
+	"github.com/shuangyu233/AirGo_Modify/api/admin_api"
+	middleware "github.com/shuangyu233/AirGo_Modify/router/middleware"
 	"github.com/gin-gonic/gin"
 )
 

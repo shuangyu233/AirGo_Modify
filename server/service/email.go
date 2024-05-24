@@ -3,8 +3,8 @@ package service
 import (
 	"crypto/tls"
 
-	"github.com/AirGo-Official/AirGo/constant"
-	"github.com/AirGo-Official/AirGo/global"
+	"github.com/shuangyu233/AirGo_Modify/constant"
+	"github.com/shuangyu233/AirGo_Modify/global"
 	"gopkg.in/gomail.v2"
 )
 

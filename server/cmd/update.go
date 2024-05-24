@@ -1,7 +1,7 @@
 package cmd
 
 import (
-	"github.com/AirGo-Official/AirGo/app"
+	"github.com/shuangyu233/AirGo_Modify/app"
 	"github.com/spf13/cobra"
 )
 

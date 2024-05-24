@@ -14,7 +14,7 @@ import (
 	"strings"
 	"time"
 
-	"github.com/AirGo-Official/AirGo/utils/response"
+	"github.com/shuangyu233/AirGo_Modify/utils/response"
 	"github.com/dustin/go-humanize"
 	"github.com/gin-gonic/gin"
 	"github.com/go-resty/resty/v2"

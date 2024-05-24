@@ -7,10 +7,10 @@ import (
 	"strings"
 	"time"
 
-	"github.com/AirGo-Official/AirGo/constant"
-	"github.com/AirGo-Official/AirGo/global"
-	"github.com/AirGo-Official/AirGo/model"
-	"github.com/AirGo-Official/AirGo/utils/encrypt_plugin"
+	"github.com/shuangyu233/AirGo_Modify/constant"
+	"github.com/shuangyu233/AirGo_Modify/global"
+	"github.com/shuangyu233/AirGo_Modify/model"
+	"github.com/shuangyu233/AirGo_Modify/utils/encrypt_plugin"
 	"gorm.io/gorm"
 	"gorm.io/gorm/clause"
 )

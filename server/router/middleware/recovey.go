@@ -3,8 +3,8 @@ package router
 import (
 	"runtime/debug"
 
-	"github.com/AirGo-Official/AirGo/global"
-	"github.com/AirGo-Official/AirGo/utils/format_plugin"
+	"github.com/shuangyu233/AirGo_Modify/global"
+	"github.com/shuangyu233/AirGo_Modify/utils/format_plugin"
 	"github.com/gin-gonic/gin"
 )
 

@@ -14,13 +14,13 @@ import (
 	"syscall"
 	"time"
 
-	"github.com/AirGo-Official/AirGo/constant"
-	"github.com/AirGo-Official/AirGo/global"
-	"github.com/AirGo-Official/AirGo/model"
-	"github.com/AirGo-Official/AirGo/utils/file_plugin"
-	"github.com/AirGo-Official/AirGo/utils/net_plugin"
-	"github.com/AirGo-Official/AirGo/utils/response"
-	"github.com/AirGo-Official/AirGo/utils/websocket_plugin"
+	"github.com/shuangyu233/AirGo_Modify/constant"
+	"github.com/shuangyu233/AirGo_Modify/global"
+	"github.com/shuangyu233/AirGo_Modify/model"
+	"github.com/shuangyu233/AirGo_Modify/utils/file_plugin"
+	"github.com/shuangyu233/AirGo_Modify/utils/net_plugin"
+	"github.com/shuangyu233/AirGo_Modify/utils/response"
+	"github.com/shuangyu233/AirGo_Modify/utils/websocket_plugin"
 	"github.com/gin-gonic/gin"
 	"github.com/go-resty/resty/v2"
 	"github.com/tidwall/gjson"
@@ -107,7 +107,7 @@ func (s *AdminServer) DownloadLatestVersion(ctx *gin.Context) error {
 		return err
 	}
 	filePath := path.Join(currentPath, "AirGo.tar.gz")
-	// example:https://github.com/AirGo-Official/AirGo/releases/download/v0.2.1/AirGo-v0.2.1-darwin-arm64.tar.gz
+	// example:https://github.com/shuangyu233/AirGo_Modify/releases/download/v0.2.1/AirGo-v0.2.1-darwin-arm64.tar.gz
 	downloadFilePath := fmt.Sprintf("%s/%s/%s-%s-%s-%s%s", constant.AIRGO_GITHUB_DOWNLOAD_PRE, version, "AirGo", version, runtime.GOOS, runtime.GOARCH, ".tar.gz")
 	//err = net_plugin.DownloadFile(downloadFilePath, filePath, 0666)
 	err = net_plugin.DownloadFileWithProgress(downloadFilePath, filePath, 0666, ctx)

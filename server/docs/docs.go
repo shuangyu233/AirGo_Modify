@@ -10,11 +10,11 @@ const docTemplate = `{
         "description": "{{escape .Description}}",
         "title": "{{.Title}}",
         "contact": {
-            "url": "https://github.com/AirGo-Official/AirGo"
+            "url": "https://github.com/shuangyu233/AirGo_Modify"
         },
         "license": {
             "name": "GPL v3.0",
-            "url": "https://github.com/AirGo-Official/AirGo/blob/main/LICENSE"
+            "url": "https://github.com/shuangyu233/AirGo_Modify/blob/main/LICENSE"
         },
         "version": "{{.Version}}"
     },

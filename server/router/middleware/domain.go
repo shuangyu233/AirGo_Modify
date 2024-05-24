@@ -3,7 +3,7 @@ package router
 import (
 	"strings"
 
-	"github.com/AirGo-Official/AirGo/global"
+	"github.com/shuangyu233/AirGo_Modify/global"
 	"github.com/gin-gonic/gin"
 )
 

@@ -1,10 +1,10 @@
 package user_api
 
 import (
-	"github.com/AirGo-Official/AirGo/global"
-	"github.com/AirGo-Official/AirGo/model"
-	"github.com/AirGo-Official/AirGo/service"
-	"github.com/AirGo-Official/AirGo/utils/response"
+	"github.com/shuangyu233/AirGo_Modify/global"
+	"github.com/shuangyu233/AirGo_Modify/model"
+	"github.com/shuangyu233/AirGo_Modify/service"
+	"github.com/shuangyu233/AirGo_Modify/utils/response"
 	"github.com/gin-gonic/gin"
 )
 

@@ -3,9 +3,9 @@ package service
 import (
 	"errors"
 
-	"github.com/AirGo-Official/AirGo/constant"
-	"github.com/AirGo-Official/AirGo/global"
-	"github.com/AirGo-Official/AirGo/model"
+	"github.com/shuangyu233/AirGo_Modify/constant"
+	"github.com/shuangyu233/AirGo_Modify/global"
+	"github.com/shuangyu233/AirGo_Modify/model"
 	tgbotapi "github.com/go-telegram-bot-api/telegram-bot-api/v5"
 )
 

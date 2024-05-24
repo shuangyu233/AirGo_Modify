@@ -4,9 +4,9 @@ import (
 	"errors"
 	"strings"
 
-	"github.com/AirGo-Official/AirGo/global"
-	"github.com/AirGo-Official/AirGo/model"
-	"github.com/AirGo-Official/AirGo/utils/time_plugin"
+	"github.com/shuangyu233/AirGo_Modify/global"
+	"github.com/shuangyu233/AirGo_Modify/model"
+	"github.com/shuangyu233/AirGo_Modify/utils/time_plugin"
 )
 
 type Traffic struct {

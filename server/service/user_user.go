@@ -6,18 +6,18 @@ import (
 	"strings"
 	"time"
 
-	"github.com/AirGo-Official/AirGo/constant"
-	"github.com/AirGo-Official/AirGo/global"
-	"github.com/AirGo-Official/AirGo/utils/jwt_plugin"
-	"github.com/AirGo-Official/AirGo/utils/time_plugin"
-	timeTool "github.com/AirGo-Official/AirGo/utils/time_plugin"
+	"github.com/shuangyu233/AirGo_Modify/constant"
+	"github.com/shuangyu233/AirGo_Modify/global"
+	"github.com/shuangyu233/AirGo_Modify/utils/jwt_plugin"
+	"github.com/shuangyu233/AirGo_Modify/utils/time_plugin"
+	timeTool "github.com/shuangyu233/AirGo_Modify/utils/time_plugin"
 	"github.com/golang-jwt/jwt/v5"
 	"gorm.io/gorm"
 
 	"errors"
 
-	"github.com/AirGo-Official/AirGo/model"
-	encrypt_plugin "github.com/AirGo-Official/AirGo/utils/encrypt_plugin"
+	"github.com/shuangyu233/AirGo_Modify/model"
+	encrypt_plugin "github.com/shuangyu233/AirGo_Modify/utils/encrypt_plugin"
 )
 
 type User struct{}

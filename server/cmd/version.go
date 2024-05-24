@@ -3,7 +3,7 @@ package cmd
 import (
 	"fmt"
 
-	"github.com/AirGo-Official/AirGo/constant"
+	"github.com/shuangyu233/AirGo_Modify/constant"
 	"github.com/spf13/cobra"
 )
 

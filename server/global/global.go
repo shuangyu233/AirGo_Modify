@@ -1,8 +1,8 @@
 package global
 
 import (
-	"github.com/AirGo-Official/AirGo/model"
-	queue "github.com/AirGo-Official/AirGo/utils/queue_plugin"
+	"github.com/shuangyu233/AirGo_Modify/model"
+	queue "github.com/shuangyu233/AirGo_Modify/utils/queue_plugin"
 	"github.com/casbin/casbin/v2"
 	ants "github.com/panjf2000/ants/v2"
 	"github.com/sirupsen/logrus"

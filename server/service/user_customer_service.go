@@ -6,8 +6,8 @@ import (
 	"strings"
 	"time"
 
-	"github.com/AirGo-Official/AirGo/global"
-	"github.com/AirGo-Official/AirGo/model"
+	"github.com/shuangyu233/AirGo_Modify/global"
+	"github.com/shuangyu233/AirGo_Modify/model"
 	uuid "github.com/satori/go.uuid"
 	"gorm.io/gorm"
 )

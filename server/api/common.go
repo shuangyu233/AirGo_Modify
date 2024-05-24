@@ -7,11 +7,11 @@ import (
 	"sync"
 	"time"
 
-	"github.com/AirGo-Official/AirGo/constant"
-	"github.com/AirGo-Official/AirGo/global"
-	"github.com/AirGo-Official/AirGo/utils/encrypt_plugin"
-	"github.com/AirGo-Official/AirGo/utils/response"
-	"github.com/AirGo-Official/AirGo/utils/websocket_plugin"
+	"github.com/shuangyu233/AirGo_Modify/constant"
+	"github.com/shuangyu233/AirGo_Modify/global"
+	"github.com/shuangyu233/AirGo_Modify/utils/encrypt_plugin"
+	"github.com/shuangyu233/AirGo_Modify/utils/response"
+	"github.com/shuangyu233/AirGo_Modify/utils/websocket_plugin"
 	"github.com/gin-gonic/gin"
 	"github.com/gorilla/websocket"
 )

@@ -2,7 +2,7 @@
   <div class="layout-footer pb15">
     <div style="margin: 0 auto;">
       <div>
-        <el-link href="https://github.com/AirGo-Official/AirGo">© AirGo</el-link>
+        <el-link href="https://github.com/shuangyu233/AirGo_Modify">© AirGo</el-link>
         <span> | </span>
         <el-link>By {{ themeConfig.globalTitle }}</el-link>
       </div>

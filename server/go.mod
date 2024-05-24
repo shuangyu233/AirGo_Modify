@@ -1,4 +1,4 @@
-module github.com/AirGo-Official/AirGo
+module github.com/shuangyu233/AirGo_Modify
 
 go 1.22.2
 
