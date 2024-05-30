@@ -71,8 +71,8 @@ const (
 	ARTICLE_TYPE_KNOWLEDGE = "knowledge"
 
 	// github
-	AIRGO_GITHUB_API          = "https://api.github.com/repos/AirGo-Official/AirGo/releases/latest"
-	AIRGO_GITHUB_DOWNLOAD_PRE = "https://github.com/AirGo-Official/AirGo/releases/download"
+	AIRGO_GITHUB_API          = "https://api.github.com/repos/shuangyu233/AirGo_Modify/releases/latest"
+	AIRGO_GITHUB_DOWNLOAD_PRE = "https://github.com//shuangyu233/AirGo_Modify/releases/download"
 
 	//finance
 	BALANCE_STATEMENT_TITLE_RECHARGE    = "Recharge"    //充值
