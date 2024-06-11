@@ -49,7 +49,7 @@ func Register(ctx *gin.Context) {
 	if global.Server.Website.EnableEmailCode {
 		ok, err = service.UserSvc.VerifyEmailWhenRegister(u)
 		if err != nil {
-			response.Fail("服务内部错误,请稍后重试", nil, ctx)
+			response.Fail("邮箱验证码输入错误,请重试", nil, ctx)
 			return
 		}
 		if !ok {
@@ -86,7 +86,7 @@ func Register(ctx *gin.Context) {
 		if code == 1 { // 用户已存在
 			response.Fail("用户已存在", nil, ctx)
 		} else if code == 2 { // 服务内部错误
-			response.Fail("服务内部错误,请稍后重试", nil, ctx)
+			response.Fail("用户已存在", nil, ctx)
 		}
 		return
 	}
@@ -122,7 +122,7 @@ func Login(c *gin.Context) {
 	err := c.ShouldBind(&l)
 	if err != nil {
 		global.Logrus.Error(err.Error())
-		response.Fail("请求参数错误", nil, c)
+		response.Fail("您的输入信息有误，请检查后重试！", nil, c)
 		return
 	}
 	//查询用户并校验有效性
@@ -158,7 +158,7 @@ func ResetUserPassword(ctx *gin.Context) {
 	//校验邮箱验证码
 	ok, err := service.UserSvc.VerifyEmailWhenResetPassword(u)
 	if err != nil {
-		response.Fail("服务内部错误,请重试", nil, ctx)
+		response.Fail("邮箱验证码输入错误,请重试", nil, ctx)
 		return
 	}
 	if !ok {
