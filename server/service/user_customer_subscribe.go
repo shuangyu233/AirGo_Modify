@@ -227,7 +227,7 @@ func ClashMeta(nodes *[]model.Node) string {
 	clashYaml.Port = 7890
 	clashYaml.SocksPort = 7891
 	clashYaml.RedirPort = 7892
-	clashYaml.AllowLan = false
+	clashYaml.AllowLan = true
 	clashYaml.Mode = "rule"
 	clashYaml.LogLevel = "silent"
 	clashYaml.ExternalController = "0.0.0.0:9090"
