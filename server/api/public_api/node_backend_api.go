@@ -45,6 +45,7 @@ func AGGetNodeInfo(ctx *gin.Context) {
 		ctx.AbortWithStatus(400)
 		return
 	}
+	node.TrafficRate = 1
 	//处理ss节点加密
 	if node.Protocol == "shadowsocks" {
 		node.ServerKey = service.AdminNodeSvc.GetShadowsocksServerKey(node)
