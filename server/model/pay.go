@@ -35,7 +35,7 @@ type AlipayPreCreatePayToFrontend struct {
 }
 
 type Epay struct {
-	EpayPid       int64  `json:"epay_pid"`        //商户ID
+	EpayPid       string `json:"epay_pid"`        //商户ID
 	EpayKey       string `json:"epay_key"`        //商户密钥
 	EpayApiURL    string `json:"epay_api_url"`    //api地址
 	EpayReturnURL string `json:"epay_return_url"` //页面跳转通知地址
