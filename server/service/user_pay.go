@@ -1,8 +1,6 @@
 package service
 
 import (
-	"strconv"
-
 	"github.com/AirGo-Official/AirGo/global"
 	"github.com/AirGo-Official/AirGo/model"
 	"github.com/AirGo-Official/AirGo/utils/encrypt_plugin"
@@ -156,7 +154,7 @@ func (p *Pay) EpayPreByHTML(sysOrder *model.Order, pay *model.Pay) (*model.EpayP
 
 // 易支付sign生成
 func (p *Pay) CreateEpaySign(epay *model.EpayPreCreatePay, pay *model.Pay) string {
-	text := "money=" + epay.Money + "&" + "name=" + epay.Name + "&" + "notify_url=" + epay.NotifyUrl + "&" + "out_trade_no=" + epay.OutTradeNo + "&" + "pid=" + strconv.FormatInt(epay.Pid, 10) + "&" + "return_url=" + epay.ReturnUrl + pay.Epay.EpayKey
+	text := "money=" + epay.Money + "&" + "name=" + epay.Name + "&" + "notify_url=" + epay.NotifyUrl + "&" + "out_trade_no=" + epay.OutTradeNo + "&" + "pid=" + pay.Epay.EpayPid + "&" + "return_url=" + epay.ReturnUrl + pay.Epay.EpayKey
 	//fmt.Println("text:", text)
 	return encrypt_plugin.Md5Encode(text, false)
 }

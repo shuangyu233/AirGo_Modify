@@ -45,7 +45,7 @@ type Epay struct {
 
 // 易支付支付预创建
 type EpayPreCreatePay struct {
-	Pid        int64  `json:"pid"`          //商户ID
+	Pid        string `json:"pid"`          //商户ID
 	Type       string `json:"type"`         //支付方式
 	OutTradeNo string `json:"out_trade_no"` //商户订单号
 	NotifyUrl  string `json:"notify_url"`   //服务器异步通知地址
