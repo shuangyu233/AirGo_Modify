@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"strconv"
 	"strings"
+	"sync"
 	"time"
 
 	"github.com/AirGo-Official/AirGo/api"
@@ -27,7 +28,6 @@ import (
 // @Failure 304  "数据和上次一致"
 // @Router /api/public/airgo/node/getNodeInfo [get]
 func AGGetNodeInfo(ctx *gin.Context) {
-	//验证key
 	if global.Server.Subscribe.TEK != ctx.Query("key") {
 		ctx.AbortWithStatus(400)
 		return
@@ -41,7 +41,7 @@ func AGGetNodeInfo(ctx *gin.Context) {
 	var node model.Node
 	err = global.DB.Model(&model.Node{}).Where(&model.Node{ID: nodeIDInt}).Preload("Access").First(&node).Error
 	if err != nil {
-		global.Logrus.Error("AGGetNodeInfo error,id="+id, err.Error())
+		global.Logrus.Error("AGGetNodeInfo error,id=" + id + ": " + err.Error())
 		ctx.AbortWithStatus(400)
 		return
 	}
@@ -65,27 +65,30 @@ func AGGetNodeInfo(ctx *gin.Context) {
 // @Failure 304  "数据和上次一致"
 // @Router /api/public/airgo/node/AGReportNodeStatus [post]
 func AGReportNodeStatus(ctx *gin.Context) {
-	//验证key
 	if global.Server.Subscribe.TEK != ctx.Query("key") {
+		ctx.AbortWithStatus(400)
 		return
 	}
 	var AGNodeStatus model.AGNodeStatus
 	err := ctx.ShouldBind(&AGNodeStatus)
 	if err != nil {
-		global.Logrus.Error("error", err.Error())
+		global.Logrus.Error("AGReportNodeStatus error: " + err.Error())
 		ctx.AbortWithStatus(400)
 		return
 	}
-	//处理探针
-	cacheStatus, ok := global.LocalCache.Get(fmt.Sprintf("%s%d",
-		constant.CACHE_NODE_STATUS_BY_NODEID, AGNodeStatus.ID))
+
+	var cacheLock sync.Mutex
+	cacheLock.Lock()
+	defer cacheLock.Unlock()
+
+	cacheStatus, ok := global.LocalCache.Get(fmt.Sprintf("%s%d", constant.CACHE_NODE_STATUS_BY_NODEID, AGNodeStatus.ID))
+
 	if ok {
 		oldStatus := cacheStatus.(model.NodeStatus)
 		oldStatus.Status = true
 		oldStatus.CPU = AGNodeStatus.CPU
 		oldStatus.Mem = AGNodeStatus.Mem
 		oldStatus.Disk = AGNodeStatus.Disk
-		//oldStatus.Uptime=AGNodeStatus.Uptime
 		global.LocalCache.Set(fmt.Sprintf("%s%d",
 			constant.CACHE_NODE_STATUS_BY_NODEID, AGNodeStatus.ID),
 			oldStatus,
@@ -118,6 +121,7 @@ func AGReportNodeStatus(ctx *gin.Context) {
 func AGGetUserlist(ctx *gin.Context) {
 	//验证key
 	if global.Server.Subscribe.TEK != ctx.Query("key") {
+		ctx.AbortWithStatus(400)
 		return
 	}
 	id := ctx.Query("id")
@@ -150,7 +154,7 @@ func AGGetUserlist(ctx *gin.Context) {
 		Select("id, sub_uuid AS uuid, user_name, node_connector, node_speed_limit").
 		Find(&users).Error
 	if err != nil {
-		global.Logrus.Error("error,id="+id, err.Error())
+		global.Logrus.Error("AGGetUserlist error, id=" + id + ": " + err.Error())
 		ctx.AbortWithStatus(400)
 		return
 	}
@@ -159,7 +163,7 @@ func AGGetUserlist(ctx *gin.Context) {
 	case constant.NODE_PROTOCOL_SHADOWSOCKS:
 		switch strings.HasPrefix(node.Scy, "2022") {
 		case true:
-			for k, _ := range users {
+			for k := range users {
 				p := users[k].UUID.String()
 				if node.Scy == "2022-blake3-aes-128-gcm" {
 					p = p[:16]
@@ -168,7 +172,7 @@ func AGGetUserlist(ctx *gin.Context) {
 				users[k].Passwd = p
 			}
 		default:
-			for k, _ := range users {
+			for k := range users {
 				users[k].Passwd = users[k].UUID.String()
 			}
 		}
@@ -189,65 +193,54 @@ func AGGetUserlist(ctx *gin.Context) {
 // @Failure 304  "数据和上次一致"
 // @Router /api/public/airgo/user/AGReportUserTraffic [post]
 func AGReportUserTraffic(ctx *gin.Context) {
-	//验证key
+	// 校验节点密钥
 	if global.Server.Subscribe.TEK != ctx.Query("key") {
-		return
-	}
-	var AGUserTraffic model.AGUserTraffic //Xrayr 或 v2bx 中的 uid 对应 customer_server id
-	err := ctx.ShouldBind(&AGUserTraffic)
-	if err != nil {
-		global.Logrus.Error("error", err.Error())
 		ctx.AbortWithStatus(400)
 		return
 	}
-	//fmt.Println("用户流量统计", AGUserTraffic)
-	//查询节点倍率
+
+	// 绑定并校验请求体数据
+	var AGUserTraffic model.AGUserTraffic
+	if err := ctx.ShouldBind(&AGUserTraffic); err != nil {
+		global.Logrus.Error("AGReportUserTraffic error: " + err.Error())
+		ctx.AbortWithStatus(400)
+		return
+	}
+
+	// 获取节点信息
 	node, err := service.AdminNodeSvc.FirstNode(&model.Node{ID: AGUserTraffic.ID})
 	if err != nil {
-		global.Logrus.Error("error", err.Error())
+		global.Logrus.Error("AGReportUserTraffic error: " + err.Error())
 		ctx.AbortWithStatus(400)
 		return
 	}
-	// if node.TrafficRate < 0 {
-	// 	node.TrafficRate = 1
-	// }
-	// 处理流量统计
-	var customerServerIDs []int64
-	var customerServiceArr []model.CustomerService
-	var trafficLog = model.NodeTrafficLog{
-		NodeID: node.ID,
-	}
-	userTrafficLogMap := make(map[int64]model.UserTrafficLog)
-	for _, v := range AGUserTraffic.UserTraffic {
-		//每个用户流量
-		customerServerIDs = append(customerServerIDs, v.UID)
-		//需要更新的用户订阅信息（*倍率）
-		customerServiceArr = append(customerServiceArr, model.CustomerService{
-			ID:       v.UID,
-			UsedUp:   int64(float64(v.Upload) * node.TrafficRate),
-			UsedDown: int64(float64(v.Download) * node.TrafficRate),
-		})
-		//需要插入的用户流量统计（*倍率）
-		userTrafficLogMap[v.UID] = model.UserTrafficLog{
-			SubUserID: v.UID,
-			UserName:  v.Email,
-			U:         int64(float64(v.Upload) * node.TrafficRate),
-			D:         int64(float64(v.Download) * node.TrafficRate),
-		}
-		//该节点总流量（无需倍率）
-		trafficLog.D = trafficLog.U + v.Upload
-		trafficLog.U = trafficLog.D + v.Download
 
+	// 准备记录数据
+	var trafficLog model.NodeTrafficLog
+	userTrafficLogMap := make(map[int64]model.UserTrafficLog)
+	var totalUpload, totalDownload int64
+
+	for _, userTraffic := range AGUserTraffic.UserTraffic {
+		upload := int64(float64(userTraffic.Upload) * node.TrafficRate)
+		download := int64(float64(userTraffic.Download) * node.TrafficRate)
+
+		userTrafficLogMap[userTraffic.UID] = model.UserTrafficLog{
+			SubUserID: userTraffic.UID,
+			UserName:  userTraffic.Email,
+			U:         upload,
+			D:         download,
+		}
+
+		totalUpload += upload
+		totalDownload += download
 	}
-	// 处理节点状态
-	_ = global.Queue.Publish(constant.NODE_BACKEND_TASK, &service.NodeBackendServiceMessage{
-		Title: constant.NODE_BACKEND_TASK_TITLE_NODE_STATUS,
-		Data: &service.NodeStatusMessage{
-			CustomerServerIDs: customerServerIDs,
-			NodeTrafficLog:    &trafficLog,
-		},
-	})
-	//插入节点流量统计
+
+	// 记录节点总流量
+	trafficLog.NodeID = node.ID
+	trafficLog.U = totalUpload
+	trafficLog.D = totalDownload
+
+	// 发布任务到队列处理
 	_ = global.Queue.Publish(constant.NODE_BACKEND_TASK, &service.NodeBackendServiceMessage{
 		Title: constant.NODE_BACKEND_TASK_TITLE_NODE_TRAFFIC,
 		Data: &service.NodeTrafficMessage{
@@ -255,24 +248,17 @@ func AGReportUserTraffic(ctx *gin.Context) {
 			AGUserTraffic:  &AGUserTraffic,
 		},
 	})
-	//插入用户流量统计
-	_ = global.Queue.Publish(constant.NODE_BACKEND_TASK, &service.NodeBackendServiceMessage{
-		Title: constant.NODE_BACKEND_TASK_TITLE_UPDATE_CUSTOMER_TRAFFICLOG,
-		Data: &service.UpdateCustomerTrafficLogMessage{
-			CustomerServerIDs: customerServerIDs,
-			UserTrafficLogMap: userTrafficLogMap,
-		},
-	})
-	//更新用户已用流量信息
-	_ = global.Queue.Publish(constant.NODE_BACKEND_TASK, &service.NodeBackendServiceMessage{
-		Title: constant.NODE_BACKEND_TASK_TITLE_UPDATE_CUSTOMER_TRAFFICUSED,
-		Data: &service.UpdateCustomerTrafficUsedMessage{
-			CustomerServerIDs:   customerServerIDs,
-			CustomerServiceList: &customerServiceArr,
-		},
-	})
-	ctx.String(200, "success")
 
+	_ = global.Queue.Publish(constant.NODE_BACKEND_TASK, &service.NodeBackendServiceMessage{
+		Title: constant.NODE_BACKEND_TASK_TITLE_USER_TRAFFIC,
+		Data:  userTrafficLogMap,
+	})
+
+	// 记录日志
+	global.Logrus.Info(fmt.Sprintf("Node[id=%d] user traffic log success", AGUserTraffic.ID))
+
+	// 返回成功响应
+	ctx.String(200, "success")
 }
 
 // AGReportNodeOnlineUsers
